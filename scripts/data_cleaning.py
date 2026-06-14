@@ -117,3 +117,80 @@ qualifying_clean = qualifying_clean.rename(
     }
 )
 
+# Merge results with drivers
+
+f1_df = results_clean.merge(
+    drivers_clean,
+    on="driverId",
+    how="left"
+)
+
+print(f1_df.shape)
+
+f1_df = f1_df.merge(
+    constructors_clean,
+    on="constructorId",
+    how="left"
+)
+
+print(f1_df.shape)
+
+f1_df = f1_df.merge(
+    races_clean,
+    on="raceId",
+    how="left"
+)
+
+print(f1_df.shape)
+
+f1_df = f1_df.merge(
+    circuits_clean,
+    on="circuitId",
+    how="left"
+)
+
+print(f1_df.shape)
+
+f1_df = f1_df.merge(
+    qualifying_clean,
+    on=["raceId", "driverId"],
+    how="left"
+)
+
+print(f1_df.shape)
+
+print(f1_df.head())
+print(f1_df.info())
+
+f1_df.to_csv(
+    "data/processed/f1_analytics_dataset.csv",
+    index=False
+)
+
+print(f1_df.columns.tolist())
+
+print(
+    f1_df.groupby("year")["qualifying_position"]
+         .count()
+         .sort_index()
+)
+
+print(f1_df["fastestLap"].head(20))
+
+print(f1_df["fastestLap"].unique()[:20])
+
+print(f1_df.isnull().sum())
+
+# Remove unnecessary column
+
+f1_df = f1_df.drop(
+    columns=["fastestLap"]
+)
+
+f1_df.to_csv(
+    "data/processed/f1_analytics_dataset.csv",
+    index=False
+)
+
+print(f1_df["positionOrder"].describe())
+print(f1_df["grid"].describe())
