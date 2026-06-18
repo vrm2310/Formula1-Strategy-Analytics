@@ -139,7 +139,7 @@ Provides a high-level summary of Formula 1 performance metrics.
 - Top Constructors
 - Historical Trends
 
-![Executive Overview](screenshots/page1_overview.png)
+![Executive Overview](visuals/page1_overview.png)
 
 ---
 
